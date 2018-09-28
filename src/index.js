@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App.js";
-import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-//import BrowserRouter from "react-router-dom";
+import App from "./components/App";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -11,5 +9,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
-
-//console.log("hello");

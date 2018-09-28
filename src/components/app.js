@@ -1,84 +1,90 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-
-import { Route, Switch } from "react-router-dom";
+// import React, { Component } from "react";
+import React from "react";
+import { Route, Link } from "react-router-dom";
 
 import "../styles/App.css";
 
-/*
-class Profile extends Component {
-  render() {
-    return <p>Profile</p>;
-  }
-}
+// destructar header från props: props.header
+// Reusable components
+const Header = ({ title }) => <h1> {title} </h1>;
 
-class Login extends Component {
-  render() {
-    return <p>Login to your profile</p>;
-  }
-}*/
+const Content = ({ text }) => <p> {text} </p>;
 
-///////////////////////////////////////////////
-/*
-class Header extends Component {
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/Login">Login</Link>
-        </li>
-      </ul>
-    </nav>
-  </header>
-};
-*/
-/*
-const Login = () => (
-       <p>Login</p>
-)
-  
-const Profile = () => (
-      return <p>Profile</p>
-)
-  
-
-
-const routes = () => (
-    <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/profile" component={Profile} />
-    </Swith>
+const Home = () => (
+  <div>
+    <Header title="Home" />
+    <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data. lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum" />
+  </div>
 );
-*/
 
-class Navbar extends Component {
-  render() {
-    return (
-      <div>
-        <h3>Profile</h3>
-        <h3>New Table</h3>
-        <h3>My Tables</h3>
-      </div>
-    );
-  }
-}
+const Profile = () => (
+  <div>
+    <Header title="Profile" />
+    <Content text="Login to your account" />
+  </div>
+);
 
-class Header extends Component {
-  render() {
-    return <h1> {this.props.header} </h1>;
-  }
-}
+const MyTables = () => (
+  <div>
+    <Header title="My Tables" />
+    <Content text="Here you see your saved tables" />
+  </div>
+);
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Header header="Login" />
-      </div>
-    );
-  }
-}
+const NewTable = ({ match }) => (
+  <div>
+    <Header title="Create new table" />
+    <Content text="Here you can create a new table" />
+
+    <ul>
+      <li>
+        <Link to={`${match.url}/create`}>CREATE!</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/delete`}>DELETE!</Link>
+      </li>
+    </ul>
+
+    <Route
+      exact
+      path={`${match.path}/:newtable`}
+      render={({ match }) => <div> A table is {match.params.newtable} </div>}
+    />
+  </div>
+);
+
+const CreatedTable = () => (
+  <div>
+    <Header title="A new created table" />
+    <Content text="Here you can create a new table" />
+  </div>
+);
+
+// Stateless function, pure
+const App = () => (
+  <div>
+    <Header title="vizuvizu" />
+
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
+        <Link to="/mytables">MyTables</Link>
+      </li>
+      <li>
+        <Link to="/newtable">NewTable</Link>
+      </li>
+    </ul>
+
+    <Route exact path="/" component={Home} />
+    <Route path="/profile" component={Profile} />
+    <Route path="/mytables" component={MyTables} />
+    <Route path="/newtable" component={NewTable} />
+  </div>
+);
 
 export default App;
-//<Header />
-//<Main />
