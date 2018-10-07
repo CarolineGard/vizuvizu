@@ -1,25 +1,10 @@
 import React from "react";
-// import Input from "./inputField";
-
-const Colors = [
-  "#e06b6c",
-  "#ed373b",
-  "#32a177",
-  "#428d88",
-  "#f5d9e6",
-  "#f6c935",
-  "#169776",
-  "#8bc5f2",
-  "#2ab6fb",
-  "#c690dd",
-  "#58b2d8",
-  "#23313e",
-];
+import ColorButton from "./colorbutton";
 
 class InputForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { column: [], temp: [], btnColor: Colors[0], btnValue: 0 };
+    this.state = { column: [], temp: [] };
   }
 
   handleClick = () => {
@@ -52,17 +37,6 @@ class InputForm extends React.Component {
     this.setState({ temp }); // ===> {"temp": temp}
   };
 
-  changeColor = () => {
-    var { btnValue, btnColor } = this.state;
-
-    btnValue === btnColor.length ? (btnValue = 0) : (btnValue = btnValue + 1);
-
-    this.setState({
-      btnColor: Colors[btnValue],
-      btnValue,
-    });
-  };
-
   render() {
     const { column } = this.state;
     return (
@@ -72,12 +46,7 @@ class InputForm extends React.Component {
           index
         ) => (
           <div>
-            <button
-              style={{ backgroundColor: this.state.btnColor }}
-              onClick={() => this.changeColor()}
-            >
-              color
-            </button>
+            <ColorButton />
             <input
               type="text"
               value={this.state.temp[index]}
