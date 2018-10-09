@@ -1,53 +1,59 @@
+// React
 import React from "react";
 import { Route, Link } from "react-router-dom";
 
+// Material ui
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-// import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
+// Components
 import SignIn from "./login";
 import NewTable from "./newtable";
-import Images from "./backgroundimg";
-import styles from "./mui-styles";
-import InputForm from "./inputForm";
+import Styles from "../styles/mui-styles";
 
 // destructar header från props: props.header
 // Reusable components
-const Header = ({ title }) => <h1> {title} </h1>;
-const Content = ({ text }) => <p> {text} </p>;
+const Header = ({ title }) => <Typography variant="H1"> {title} </Typography>;
+const Content = ({ text }) => <Typography variant="body1"> {text} </Typography>;
 
 const Home = () => (
   <div>
-    <MuiThemeProvider theme={styles}>
+    {/* Switch between login and home first page for user */}
+    <MuiThemeProvider theme={Styles}>
       <Header title="Home" />
-      <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data. lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum" />
-      <Button variant="outlined" color="primary">
-        Test Button
-      </Button>
-      <InputForm />
+      <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data.  " />
     </MuiThemeProvider>
-    <Images />
   </div>
 );
 
 const Navbar = () => (
   <div>
-    <MuiThemeProvider theme={styles}>
+    <MuiThemeProvider theme={Styles}>
       <AppBar color="primary" title="My App">
         <Tabs>
-          <Link to="/">
-            <Tab label="HOME" />
-          </Link>
-          <Link to="/newtable">
-            <Tab label="CREATE NEW" />
-          </Link>
-          <Link to="/login">
-            <Tab label="LOGIN" />
-          </Link>
+          <Button>
+            <Link style={{ color: "#fff", textDecoration: "none" }} to="/">
+              <Tab label="home" />
+            </Link>
+          </Button>
+          <Button>
+            <Link
+              style={{ color: "#fff", textDecoration: "none" }}
+              to="/newtable"
+            >
+              <Tab label="create new" />
+            </Link>
+          </Button>
+          <Button>
+            <Link style={{ color: "#fff", textDecoration: "none" }} to="/login">
+              <Tab label="login" />
+            </Link>
+          </Button>
         </Tabs>
       </AppBar>
     </MuiThemeProvider>
@@ -58,4 +64,4 @@ const Navbar = () => (
   </div>
 );
 
-export default withStyles(styles)(Navbar);
+export default withStyles(Styles)(Navbar);

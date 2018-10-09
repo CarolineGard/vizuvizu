@@ -1,5 +1,11 @@
 import React from "react";
 
+// Material ui
+import { withStyles } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Styles from "../styles/mui-styles";
+
 const Colors = [
   "#e06b6c",
   "#ed373b",
@@ -14,6 +20,13 @@ const Colors = [
   "#58b2d8",
   "#23313e",
 ];
+
+const styles = () => ({
+  button: {
+    // width: "15px",
+    // height: "15px",
+  },
+});
 
 class ColorButton extends React.Component {
   constructor(props) {
@@ -33,17 +46,26 @@ class ColorButton extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <button
-        style={{
-          backgroundColor: this.state.btnColor,
-          width: "30px",
-          height: "30px",
-        }}
-        onClick={() => this.changeColor()}
-      />
+      <MuiThemeProvider theme={Styles}>
+        <Button
+          // className={classes.button}
+          color="primary"
+          variant="contained"
+          onClick={() => this.changeColor()}
+        />
+      </MuiThemeProvider>
+      //   <button
+      //     style={{
+      //       backgroundColor: this.state.btnColor,
+      //       width: "30px",
+      //       height: "30px",
+      //     }}
+      //     onClick={() => this.changeColor()}
+      //   />
     );
   }
 }
 
-export default ColorButton;
+export default withStyles(styles)(ColorButton);

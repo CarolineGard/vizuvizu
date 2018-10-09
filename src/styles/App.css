@@ -1,4 +1,10 @@
+body {
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 h1 {
-  color: #27aedb;
+  /* color: azure; */
   text-align: center;
 }

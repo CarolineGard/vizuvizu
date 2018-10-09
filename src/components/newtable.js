@@ -1,11 +1,127 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import Input from "./testForm";
-import { withStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+//Material-ui
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import styles from "./mui-styles";
-import Btn from "./button";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import InputForm from "./inputForm";
+import Styles from "../styles/mui-styles";
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+
+  paper: {
+    height: 140,
+    width: 500,
+  },
+
+  control: {
+    padding: theme.spacing.unit * 2,
+  },
+
+  button: {
+    margin: "10px",
+    padding: "10px",
+    fontSize: "13px",
+  },
+});
+
+const Start = state => (
+  <div>
+    <Button
+      //className={classes.button}
+      color="primary"
+      variant="extendedFab"
+      onClick={() => state.setState({ showInputForm: true })}
+    >
+      Start
+    </Button>
+  </div>
+);
+
+const TableChoice = state => (
+  <div>
+    <Grid container direction="row">
+      <Button
+        //className={classes.button}
+        color="primary"
+        variant="extendedFab"
+        onClick={() => state.setState({ showInputForm: true })}
+      >
+        table
+      </Button>
+      <Button
+        //className={classes.button}
+        color="secondary"
+        variant="extendedFab"
+        onClick={() => (state.showInputForm = true)}
+      >
+        graph
+      </Button>
+    </Grid>
+  </div>
+);
+
+class NewTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showChoice: false, showInputForm: false };
+  }
+
+  clickStart = () => {
+    this.setState(state => ({
+      showInputForm: !state.showInputForm,
+    }));
+  };
+
+  render() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyConent: "center",
+          height: "80vh",
+        }}
+      >
+        <MuiThemeProvider theme={Styles}>
+          <Grid
+            container
+            className="root"
+            align="center"
+            vertical-align="center"
+            direction="column"
+          >
+            <Typography variant="h1" gutterBottom>
+              Create a new table
+            </Typography>
+            <Paper
+              //className={classes.control}
+              align-items="center"
+              style={{ minWidth: 500, minHeight: 300 }}
+            >
+              <Button
+                //className={classes.button}
+                color="primary"
+                variant="extendedFab"
+                onClick={() => this.clickStart}
+              >
+                Start
+              </Button>
+              <InputForm />
+              {/* {!this.state.showChoice ? <Start /> : <inputForm />} */}
+            </Paper>
+          </Grid>
+        </MuiThemeProvider>
+      </div>
+    );
+  }
+}
 
 /*
 const NewTable = ({ match }) => (
@@ -29,23 +145,4 @@ const NewTable = ({ match }) => (
 );
 */
 
-class NewTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contentNr: 0,
-      done: false,
-    };
-  }
-
-  render() {
-    return (
-      <div className="A new table">
-        <Btn />
-        <h1>Create a new table</h1>
-      </div>
-    );
-  }
-}
-
-export default NewTable;
+export default withStyles(styles)(NewTable);
