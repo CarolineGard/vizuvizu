@@ -28,11 +28,11 @@ ReactDOM.render(
 );
 */
 
-console.log("src/index.js!!!!!!!!!!!!!!!!!!!");
-
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

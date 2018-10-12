@@ -16,7 +16,11 @@ import SignIn from "./login";
 //import SignUp from "./signup";
 import NewTable from "./newtable";
 import Styles from "../styles/mui-styles";
-import NewPost from "./newPost";
+
+// import NewPost from "./newPost";
+// when form is submitted, an action is triggered.
+// The action calls the reducer to modify the global state
+import CreatePost from "../containers/CreatePost";
 
 // destructar header från props: props.header
 // Reusable components
@@ -29,7 +33,7 @@ const Home = () => (
     <MuiThemeProvider theme={Styles}>
       <Header title="Home" />
       <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data.  " />
-      <NewPost />
+      <CreatePost />
     </MuiThemeProvider>
   </div>
 );

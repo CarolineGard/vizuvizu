@@ -16,7 +16,6 @@ exports.product_create = function(req, res) {
     if (err) {
       return next(err);
     }
-    console.log("SAVE AND CREATE");
     res.send("Product Created successfully");
   });
 };

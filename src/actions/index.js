@@ -4,8 +4,6 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:1234/products";
 
-console.log("Actions/index.js!!!!!!!!!!!!!!!!!!!");
-
 export const createPost = ({ title, body }) => {
   return dispatch => {
     return axios
@@ -30,7 +28,6 @@ export const createPostSuccess = data => {
   };
 };
 
-/*
 export const deletePostSuccess = id => {
   return {
     type: DELETE_POST,
@@ -52,7 +49,6 @@ export const deletePost = id => {
       });
   };
 };
-*/
 
 export const fetchPosts = posts => {
   return {
