@@ -169,7 +169,9 @@ class InputForm extends React.Component {
                 color="secondary"
                 variant="extendedFab"
                 style={{ width: 300 }}
-                onClick={() => this.saveTable()}
+                type="submit"
+                value="Add Node server"
+                // onClick={() => this.saveTable()}
               >
                 <SaveIcon className={classes.icon} />
                 <Typography variant="button" gutterBottom>

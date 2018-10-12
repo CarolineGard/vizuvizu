@@ -13,8 +13,10 @@ import Tabs from "@material-ui/core/Tabs";
 
 // Components
 import SignIn from "./login";
+//import SignUp from "./signup";
 import NewTable from "./newtable";
 import Styles from "../styles/mui-styles";
+import NewPost from "./newPost";
 
 // destructar header från props: props.header
 // Reusable components
@@ -22,11 +24,12 @@ const Header = ({ title }) => <Typography variant="H1"> {title} </Typography>;
 const Content = ({ text }) => <Typography variant="body1"> {text} </Typography>;
 
 const Home = () => (
-  <div>
+  <div style={{ marginTop: "6rem" }}>
     {/* Switch between login and home first page for user */}
     <MuiThemeProvider theme={Styles}>
       <Header title="Home" />
       <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data.  " />
+      <NewPost />
     </MuiThemeProvider>
   </div>
 );
@@ -50,6 +53,7 @@ const Navbar = () => (
             </Link>
           </Button>
           <Button>
+            {/* <Link style={{ color: "#fff", textDecoration: "none" }} to="/login"> */}
             <Link style={{ color: "#fff", textDecoration: "none" }} to="/login">
               <Tab label="login" />
             </Link>
@@ -61,6 +65,7 @@ const Navbar = () => (
     <Route exact path="/" component={Home} />
     <Route path="/newtable" component={NewTable} />
     <Route path="/login" component={SignIn} />
+    {/* <Route path="/signup" component={SignUp} /> */}
   </div>
 );
 
