@@ -1,4 +1,4 @@
-var Product = require("../models/product");
+const Product = require("../models/post");
 
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
@@ -16,6 +16,7 @@ exports.product_create = function(req, res) {
     if (err) {
       return next(err);
     }
+    console.log("SAVE AND CREATE");
     res.send("Product Created successfully");
   });
 };

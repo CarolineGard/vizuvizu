@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import { fetchAllPosts } from "./actions/index";
-//import registerServiceWorker from "./registerServiceWorker";
+import registerServiceWorker from "./registerServiceWorker";
 
 // Create Redux store and apply redux-thunk middleware
 // Middleware helps us to deal with Async action inside the redux store
@@ -28,6 +28,8 @@ ReactDOM.render(
 );
 */
 
+console.log("src/index.js!!!!!!!!!!!!!!!!!!!");
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
@@ -35,4 +37,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//registerServiceWorker();
+registerServiceWorker();

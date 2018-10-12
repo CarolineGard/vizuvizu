@@ -2,12 +2,14 @@
 import { ADD_POST, DELETE_POST, FETCH_POST } from "./types";
 import axios from "axios";
 
-const apiUrl = "localhost:4000/posts";
+const apiUrl = "http://localhost:1234/products";
+
+console.log("Actions/index.js!!!!!!!!!!!!!!!!!!!");
 
 export const createPost = ({ title, body }) => {
   return dispatch => {
     return axios
-      .post(`${apiUrl}/add`, { title, body })
+      .post(`${apiUrl}/create`, { title, body })
       .then(response => {
         dispatch(createPostSuccess(response.data));
       })
@@ -28,6 +30,7 @@ export const createPostSuccess = data => {
   };
 };
 
+/*
 export const deletePostSuccess = id => {
   return {
     type: DELETE_POST,
@@ -49,6 +52,7 @@ export const deletePost = id => {
       });
   };
 };
+*/
 
 export const fetchPosts = posts => {
   return {

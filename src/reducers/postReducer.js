@@ -4,6 +4,8 @@
 
 import { ADD_POST, DELETE_POST, FETCH_POST } from "../actions/types";
 
+console.log("reducers/postReducer.js!!!!!!!!!!!!!!!!!!!");
+
 export default function postReducer(state = [], action) {
   switch (action.type) {
     case ADD_POST:

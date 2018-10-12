@@ -15,7 +15,7 @@ class NewPost extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.title.trim() && this.state.body.trim()) {
-      console.log(this.state);
+      this.props.onAddPost(this.state);
       this.handleReset();
     }
   };
@@ -45,7 +45,7 @@ class NewPost extends React.Component {
             <textarea
               cols="19"
               rows="8"
-              placeholder="body"
+              placeholder="Body"
               className="form-control"
               name="body"
               onChange={this.handleInputChange}
@@ -54,7 +54,7 @@ class NewPost extends React.Component {
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
-              Add post
+              Add Post
             </button>
             <button
               type="button"
