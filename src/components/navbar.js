@@ -14,6 +14,9 @@ import Tabs from "@material-ui/core/Tabs";
 // Components
 import NewTable from "./newtable";
 import Styles from "../styles/mui-styles";
+import LineChart from "../charts/LineChart";
+import MarkSerie from "../charts/MarkSerie";
+import BarChart from "../charts/BarChart";
 
 // import NewPost from "./newPost";
 // when form is submitted, an action is triggered.
