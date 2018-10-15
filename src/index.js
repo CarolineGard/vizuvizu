@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import { fetchAllPosts } from "./actions/index";
-import registerServiceWorker from "./registerServiceWorker";
+import ServiceWorker from "./serviceWorker";
 
 // Create Redux store and apply redux-thunk middleware
 // Middleware helps us to deal with Async action inside the redux store
@@ -19,22 +19,13 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 // --> when the app loads the first time, any data in the database is obtained
 store.dispatch(fetchAllPosts());
 
-/*
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );
-*/
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
-);
-
-registerServiceWorker();
+ServiceWorker();

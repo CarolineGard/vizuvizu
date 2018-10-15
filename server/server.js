@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Api routes
 app.use("/products", product);
 
 const port = process.env.PORT || 1234;

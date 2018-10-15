@@ -12,8 +12,6 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
 // Components
-import SignIn from "./login";
-//import SignUp from "./signup";
 import NewTable from "./newtable";
 import Styles from "../styles/mui-styles";
 
@@ -56,20 +54,12 @@ const Navbar = () => (
               <Tab label="create new" />
             </Link>
           </Button>
-          <Button>
-            {/* <Link style={{ color: "#fff", textDecoration: "none" }} to="/login"> */}
-            <Link style={{ color: "#fff", textDecoration: "none" }} to="/login">
-              <Tab label="login" />
-            </Link>
-          </Button>
         </Tabs>
       </AppBar>
     </MuiThemeProvider>
 
     <Route exact path="/" component={Home} />
     <Route path="/newtable" component={NewTable} />
-    <Route path="/login" component={SignIn} />
-    {/* <Route path="/signup" component={SignUp} /> */}
   </div>
 );
 
