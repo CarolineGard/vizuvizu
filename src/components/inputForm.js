@@ -16,6 +16,11 @@ import ColorButton from "./colorbutton";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Styles from "../styles/mui-styles";
 
+// Charts
+import LineChart from "../charts/LineChart";
+import BarChart from "../charts/BarChart";
+import MarkSerie from "../charts/MarkSerie";
+
 //const Theme = theme => ({ --> theme.spacing.unit
 const styles = theme => ({
   root: {
@@ -45,6 +50,7 @@ const styles = theme => ({
 
   inputField: {
     margin: "10px",
+    width: "110px",
   },
 
   icon: {
@@ -56,7 +62,8 @@ const styles = theme => ({
 class InputForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { column: [], temp: [], start: false };
+    const dataType = props.dataType;
+    this.state = { column: [], tempX: [], tempY: [], tempS: [], data: [] };
   }
 
   clickStart = () => {
@@ -75,22 +82,39 @@ class InputForm extends React.Component {
 
   deleteField = index => {
     const { column } = this.state;
-    column.splice(index, 1);
+    column.splice(index, 1); // delete one row on position index
     this.setState(column);
   };
 
-  handleInputChange = (event, index) => {
-    const { temp } = this.state;
-    temp[index] = event.target.value;
-    this.setState({ temp }); // sets temp to current value
+  handleInputChange = (event, index, type) => {
+    const { tempX, tempY, tempS } = this.state;
+
+    type === "x" && (tempX[index] = event.target.value);
+    type === "y" && (tempY[index] = event.target.value);
+    type === "s" && (tempS[index] = event.target.value);
+
+    this.setState({ tempX, tempY }); // sets temp to current value
   };
 
   addNewValue = index => {
-    const { column, temp } = this.state;
-    (temp[index] != null || temp[index] !== "") &&
-      column[index].push(temp[index]);
-    temp[index] = "";
-    this.setState({ temp }); // ===> {"temp": temp}
+    const { column, tempX, tempY, tempS } = this.state;
+
+    (tempX[index] != null || tempX[index] !== "") &&
+      (tempY[index] != null || tempY[index] !== "") &&
+      column[index].push({
+        x: parseInt(tempX[index]),
+        y: parseInt(tempY[index]),
+        size: parseInt(tempS[index]),
+        opacity: 0.2,
+      });
+
+    tempX[index] = "";
+    tempY[index] = "";
+    tempS[index] = "";
+
+    console.log("column: ", column[0]);
+
+    this.setState({ tempX, tempY }); // ==> {"tempX" : tempX, "tempY" : tempY}
   };
 
   saveTable = () => {
@@ -99,15 +123,14 @@ class InputForm extends React.Component {
   };
 
   render() {
-    const { column, start } = this.state;
-    const { classes } = this.props;
+    const { column } = this.state;
+    const { classes, dataType, maxFields } = this.props;
     return (
       <div>
         <MuiThemeProvider theme={Styles}>
           <Grid
             container
             className={classes.root}
-            // spacing={24}
             align="center"
             vertical-align="center"
             direction="column"
@@ -123,14 +146,35 @@ class InputForm extends React.Component {
                   id="outlined-number"
                   label="X"
                   type="number"
-                  value={this.state.temp[index]}
-                  onChange={event => this.handleInputChange(event, index)}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  value={this.state.tempX[index]}
+                  onChange={event => this.handleInputChange(event, index, "x")}
                   margin="dense"
                   variant="outlined"
                 />
+                <TextField
+                  className={classes.inputField}
+                  id="outlined-number"
+                  label="Y"
+                  type="number"
+                  value={this.state.tempY[index]}
+                  onChange={event => this.handleInputChange(event, index, "y")}
+                  margin="dense"
+                  variant="outlined"
+                />
+                {dataType === "mark-serie" && (
+                  <TextField
+                    className={classes.inputField}
+                    id="outlined-number"
+                    label="Size"
+                    type="number"
+                    value={this.state.tempS[index]}
+                    onChange={event =>
+                      this.handleInputChange(event, index, "s")
+                    }
+                    margin="dense"
+                    variant="outlined"
+                  />
+                )}
                 <Button
                   className={classes.button}
                   color="primary"
@@ -157,28 +201,37 @@ class InputForm extends React.Component {
                 variant="fab"
                 color="secondary"
                 aria-label="Add"
-                disabled={column.length === 5}
+                disabled={column.length === maxFields}
                 onClick={this.addNewField}
               >
                 <AddIcon className={classes.iconButton} />
               </Button>
             </Grid>
             <Grid>
-              <Button
-                className={classes.button}
-                color="secondary"
-                variant="extendedFab"
-                style={{ width: 300 }}
-                type="submit"
-                value="Add Node server"
-                // onClick={() => this.saveTable()}
-              >
-                <SaveIcon className={classes.icon} />
-                <Typography variant="button" gutterBottom>
-                  Save table
-                </Typography>
-              </Button>
+              {dataType === "line-chart" && (
+                <LineChart data={this.state.column[0]} />
+              )}
+              {dataType === "bar-chart" && (
+                <BarChart data={this.state.column[0]} />
+              )}
+              {dataType === "mark-serie" && (
+                <MarkSerie data={this.state.column[0]} />
+              )}
             </Grid>
+            <Button
+              className={classes.button}
+              color="secondary"
+              variant="extendedFab"
+              style={{ width: 300 }}
+              type="submit"
+              value="Add Node server"
+              // onClick={() => this.saveTable()}
+            >
+              <SaveIcon className={classes.icon} />
+              <Typography variant="button" gutterBottom>
+                Save table
+              </Typography>
+            </Button>
           </Grid>
         </MuiThemeProvider>
       </div>

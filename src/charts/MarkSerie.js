@@ -1,5 +1,4 @@
 import React from "react";
-//import ShowcaseButton from "../showcase-components/showcase-button";
 
 import {
   XYPlot,
@@ -7,49 +6,25 @@ import {
   YAxis,
   VerticalGridLines,
   HorizontalGridLines,
-  MarkSeries,
   MarkSeriesCanvas,
   Hint,
 } from "react-vis";
 
-// Later to be deleted
-function getRandomData() {
-  return new Array(100).fill(0).map(row => ({
-    x: Math.random() * 10,
-    y: Math.random() * 20,
-    size: Math.random() * 10,
-    color: Math.random() * 10,
-    opacity: Math.random() * 0.5 + 0.5,
-  }));
-}
 const colorRanges = {
-  typeA: ["#59E4EC", "#0D676C"],
+  typeA: ["#59E4EC", "#EFC1E3"],
   typeB: ["#EFC1E3", "#B52F93"],
 };
 
-const randomData = getRandomData();
-const nextType = {
-  typeA: "typeB",
-  typeB: "typeA",
-};
-
-const nextModeContent = {
-  canvas: "SWITCH TO SVG",
-  svg: "SWITCH TO CANVAS",
-};
-
-const drawModes = ["canvas", "svg"];
-
 class Example extends React.Component {
   state = {
-    drawMode: 0,
-    data: randomData,
+    drawMode: 1 % 2,
     colorType: "typeA",
     value: false,
   };
 
   render() {
-    const { drawMode, data, colorType } = this.state;
+    const { colorType } = this.state;
+    const { data } = this.props;
     const markSeriesProps = {
       animation: true,
       className: "mark-series-example",
@@ -61,24 +36,9 @@ class Example extends React.Component {
       onNearestXY: value => this.setState({ value }),
     };
 
-    const mode = drawModes[drawMode];
     return (
       <div className="canvas-wrapper">
-        <div className="canvas-example-controls">
-          {/* <div>{`MODE: ${mode}`}</div> */}
-          <button
-            onClick={() => this.setState({ drawMode: (drawMode + 1) % 2 })}
-            buttonContent={nextModeContent[mode]}
-          />
-          <button
-            onClick={() => this.setState({ data: getRandomData() })}
-            buttonContent={"UPDATE DATA"}
-          />
-          <button
-            onClick={() => this.setState({ colorType: nextType[colorType] })}
-            buttonContent={"UPDATE COLOR"}
-          />
-        </div>
+        <div className="canvas-example-controls" />
         <XYPlot
           onMouseLeave={() => this.setState({ value: false })}
           width={600}
@@ -88,9 +48,8 @@ class Example extends React.Component {
           <HorizontalGridLines />
           <XAxis />
           <YAxis />
-          {mode === "canvas" && <MarkSeriesCanvas {...markSeriesProps} />}
-          {mode === "svg" && <MarkSeries {...markSeriesProps} />}
-          {this.state.value ? <Hint value={this.state.value} /> : null}
+          <MarkSeriesCanvas {...markSeriesProps} />
+          <Hint value={this.state.value} />
         </XYPlot>
       </div>
     );

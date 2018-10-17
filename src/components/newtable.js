@@ -15,7 +15,15 @@ const styles = theme => ({
     flexGrow: 1,
   },
 
+  wrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyConent: "center",
+    height: "80vh",
+  },
+
   paper: {
+    justifyItems: "center",
     height: 140,
     width: 500,
   },
@@ -31,64 +39,31 @@ const styles = theme => ({
   },
 });
 
-const Start = state => (
-  <div>
-    <Button
-      //className={classes.button}
-      color="primary"
-      variant="extendedFab"
-      onClick={() => state.setState({ showInputForm: true })}
-    >
-      Start
-    </Button>
-  </div>
-);
-
-const TableChoice = state => (
-  <div>
-    <Grid container direction="row">
-      <Button
-        //className={classes.button}
-        color="primary"
-        variant="extendedFab"
-        onClick={() => state.setState({ showInputForm: true })}
-      >
-        table
-      </Button>
-      <Button
-        //className={classes.button}
-        color="secondary"
-        variant="extendedFab"
-        onClick={() => (state.showInputForm = true)}
-      >
-        graph
-      </Button>
-    </Grid>
-  </div>
-);
-
 class NewTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showChoice: false, showInputForm: false };
+    this.state = { showChoice: false, showInputForm: false, tableChoice: 1 };
   }
 
-  clickStart = () => {
+  clickStart = state => {
     this.setState(state => ({
-      showInputForm: !state.showInputForm,
+      showChoice: true,
+    }));
+  };
+
+  clickChoise = (state, tableIndex, max) => {
+    this.setState(state => ({
+      showInputForm: true,
+      showChoice: false,
+      tableChoice: tableIndex,
+      maxFields: max,
     }));
   };
 
   render() {
+    const { showChoice, showInputForm } = this.state;
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyConent: "center",
-          height: "80vh",
-        }}
-      >
+      <div className="wrapper">
         <MuiThemeProvider theme={Styles}>
           <Grid
             container
@@ -97,7 +72,7 @@ class NewTable extends React.Component {
             vertical-align="center"
             direction="column"
           >
-            <Typography variant="h1" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Create a new table
             </Typography>
             <Paper
@@ -105,16 +80,55 @@ class NewTable extends React.Component {
               align-items="center"
               style={{ minWidth: 500, minHeight: 300 }}
             >
-              <Button
-                //className={classes.button}
-                color="primary"
-                variant="extendedFab"
-                onClick={() => this.clickStart}
-              >
-                Start
-              </Button>
-              <InputForm />
-              {/* {!this.state.showChoice ? <Start /> : <inputForm />} */}
+              {!showChoice &&
+                !showInputForm && (
+                  <Button
+                    color="primary"
+                    variant="extendedFab"
+                    onClick={() => this.clickStart(this.state)}
+                  >
+                    Start
+                  </Button>
+                )}
+
+              {showChoice &&
+                !showInputForm && (
+                  <Grid container direction="row">
+                    <Button
+                      color="primary"
+                      variant="extendedFab"
+                      onClick={() =>
+                        this.clickChoise(this.state, "line-chart", 5)
+                      }
+                    >
+                      Line Chart
+                    </Button>
+                    <Button
+                      color="secondary"
+                      variant="extendedFab"
+                      onClick={() =>
+                        this.clickChoise(this.state, "bar-chart", 1)
+                      }
+                    >
+                      Bar Chart
+                    </Button>
+                    <Button
+                      color="secondary"
+                      variant="extendedFab"
+                      onClick={() =>
+                        this.clickChoise(this.state, "mark-serie", 1)
+                      }
+                    >
+                      Mark Serie
+                    </Button>
+                  </Grid>
+                )}
+              {this.state.showInputForm && (
+                <InputForm
+                  dataType={this.state.tableChoice}
+                  maxFields={this.state.maxFields}
+                />
+              )}
             </Paper>
           </Grid>
         </MuiThemeProvider>
@@ -122,27 +136,5 @@ class NewTable extends React.Component {
     );
   }
 }
-
-/*
-const NewTable = ({ match }) => (
-  <div>
-    <ul>
-      <li>
-        <Link to={`${match.url}/create`}>CREATE!</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/delete`}>DELETE!</Link>
-      </li>
-    </ul>
-    <Input />
-
-    <Route
-      exact
-      path={`${match.path}/:newtable`}
-      render={({ match }) => <div> A table is {match.params.newtable} </div>}
-    />
-  </div>
-);
-*/
 
 export default withStyles(styles)(NewTable);
