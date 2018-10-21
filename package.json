@@ -6,10 +6,16 @@
     "@material-ui/core": "^3.2.1",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.4",
+    "gravatar": "^1.6.0",
+    "jsonwebtoken": "^8.3.0",
+    "jwt-decode": "^2.2.0",
     "mongoose": "^5.3.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
@@ -17,13 +23,15 @@
     "react-scripts": "2.0.5",
     "react-vis": "^1.11.2",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:server": "nodemon server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,5 +44,6 @@
   ],
   "devDependencies": {
     "nodemon": "^1.18.4"
-  }
+  },
+  "proxy": "http://localhost:1234"
 }

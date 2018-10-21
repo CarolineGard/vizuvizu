@@ -65,71 +65,77 @@ class NewTable extends React.Component {
     return (
       <div className="wrapper">
         <MuiThemeProvider theme={Styles}>
-          <Grid
-            container
-            className="root"
-            align="center"
-            vertical-align="center"
-            direction="column"
-          >
-            <Typography variant="h4" gutterBottom>
-              Create a new table
-            </Typography>
-            <Paper
-              //className={classes.control}
-              align-items="center"
-              style={{ minWidth: 500, minHeight: 300 }}
+          <Grid container justify="center" xs={24}>
+            <Grid
+              container
+              className="root"
+              align="center"
+              vertical-align="center"
+              direction="column"
+              xs={12}
             >
-              {!showChoice &&
-                !showInputForm && (
-                  <Button
-                    color="primary"
-                    variant="extendedFab"
-                    onClick={() => this.clickStart(this.state)}
-                  >
-                    Start
-                  </Button>
-                )}
-
-              {showChoice &&
-                !showInputForm && (
-                  <Grid container direction="row">
+              <Typography variant="h4" gutterBottom>
+                Create a new table
+              </Typography>
+              <Paper
+                //className={classes.control}
+                align-items="center"
+                style={{ minWidth: 500, minHeight: 300 }}
+              >
+                {!showChoice &&
+                  !showInputForm && (
                     <Button
                       color="primary"
                       variant="extendedFab"
-                      onClick={() =>
-                        this.clickChoise(this.state, "line-chart", 5)
-                      }
+                      onClick={() => this.clickStart(this.state)}
                     >
-                      Line Chart
+                      Start
                     </Button>
-                    <Button
-                      color="secondary"
-                      variant="extendedFab"
-                      onClick={() =>
-                        this.clickChoise(this.state, "bar-chart", 1)
-                      }
-                    >
-                      Bar Chart
-                    </Button>
-                    <Button
-                      color="secondary"
-                      variant="extendedFab"
-                      onClick={() =>
-                        this.clickChoise(this.state, "mark-serie", 1)
-                      }
-                    >
-                      Mark Serie
-                    </Button>
-                  </Grid>
+                  )}
+
+                {showChoice &&
+                  !showInputForm && (
+                    <Grid container direction="row">
+                      <Button
+                        color="primary"
+                        variant="extendedFab"
+                        onClick={() =>
+                          this.clickChoise(this.state, "line-chart", 5)
+                        }
+                      >
+                        Line Chart
+                      </Button>
+                      <Button
+                        color="secondary"
+                        variant="extendedFab"
+                        onClick={() =>
+                          this.clickChoise(this.state, "bar-chart", 1)
+                        }
+                      >
+                        Bar Chart
+                      </Button>
+                      <Button
+                        color="secondary"
+                        variant="extendedFab"
+                        onClick={() =>
+                          this.clickChoise(this.state, "mark-serie", 1)
+                        }
+                      >
+                        Mark Serie
+                      </Button>
+                    </Grid>
+                  )}
+                {this.state.showInputForm && (
+                  <InputForm
+                    dataType={this.state.tableChoice}
+                    maxFields={this.state.maxFields}
+                  />
                 )}
-              {this.state.showInputForm && (
-                <InputForm
-                  dataType={this.state.tableChoice}
-                  maxFields={this.state.maxFields}
-                />
-              )}
-            </Paper>
+              </Paper>
+            </Grid>
+            <Grid direction="column" xs={12}>
+              Here's the table
+            </Grid>
           </Grid>
         </MuiThemeProvider>
       </div>

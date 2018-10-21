@@ -4,6 +4,7 @@ import "../styles/App.css";
 import Grid from "@material-ui/core/Grid";
 import Footer from "./footer";
 import Navbar from "./navbar";
+import Home from "./home";
 
 import NewPost from "./newPost";
 // when form is submitted, an action is triggered.
@@ -13,7 +14,7 @@ import CreatePost from "../containers/CreatePost";
 // Stateless function, pure
 const App = () => (
   <div>
-    <Grid container justify="center" xs={12}>
+    <Grid container justify="center" xs={24}>
       <Navbar />
     </Grid>
     <Footer />

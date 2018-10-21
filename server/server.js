@@ -3,6 +3,8 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var product = require("./routes/product"); // Imports routes for the products
 var app = express();
+const passport = require("./passport");
+const users = require("/models/user");
 
 // Set up mongoose connection
 var mongoose = require("mongoose");
@@ -17,8 +19,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(passport.initialize());
+require("./passport")(passport);
+
 // Api routes
 app.use("/products", product);
+app.use("/api/users", users);
 
 const port = process.env.PORT || 1234;
 

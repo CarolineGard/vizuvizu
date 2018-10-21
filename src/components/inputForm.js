@@ -62,7 +62,6 @@ const styles = theme => ({
 class InputForm extends React.Component {
   constructor(props) {
     super(props);
-    const dataType = props.dataType;
     this.state = { column: [], tempX: [], tempY: [], tempS: [], data: [] };
   }
 
@@ -122,6 +121,21 @@ class InputForm extends React.Component {
     // add to database
   };
 
+  NewTextField = (classes, index, label, array, type) => {
+    return (
+      <TextField
+        className={classes.inputField}
+        id="outlined-number"
+        label={label}
+        type="number"
+        value={array} // this.state.tempX[index]
+        onChange={event => this.handleInputChange(event, index, type)}
+        margin="dense"
+        variant="outlined"
+      />
+    );
+  };
+
   render() {
     const { column } = this.state;
     const { classes, dataType, maxFields } = this.props;
@@ -141,40 +155,28 @@ class InputForm extends React.Component {
             ) => (
               <Grid>
                 <ColorButton className={classes.buttonSquare} />
-                <TextField
-                  className={classes.inputField}
-                  id="outlined-number"
-                  label="X"
-                  type="number"
-                  value={this.state.tempX[index]}
-                  onChange={event => this.handleInputChange(event, index, "x")}
-                  margin="dense"
-                  variant="outlined"
-                />
-                <TextField
-                  className={classes.inputField}
-                  id="outlined-number"
-                  label="Y"
-                  type="number"
-                  value={this.state.tempY[index]}
-                  onChange={event => this.handleInputChange(event, index, "y")}
-                  margin="dense"
-                  variant="outlined"
-                />
-                {dataType === "mark-serie" && (
-                  <TextField
-                    className={classes.inputField}
-                    id="outlined-number"
-                    label="Size"
-                    type="number"
-                    value={this.state.tempS[index]}
-                    onChange={event =>
-                      this.handleInputChange(event, index, "s")
-                    }
-                    margin="dense"
-                    variant="outlined"
-                  />
+                {this.NewTextField(
+                  classes,
+                  index,
+                  "X",
+                  this.state.tempX[index],
+                  "x"
                 )}
+                {this.NewTextField(
+                  classes,
+                  index,
+                  "Y",
+                  this.state.tempY[index],
+                  "y"
+                )}
+                {dataType === "mark-serie" &&
+                  this.NewTextField(
+                    classes,
+                    index,
+                    "Size",
+                    this.state.tempS[index],
+                    "s"
+                  )}
                 <Button
                   className={classes.button}
                   color="primary"
@@ -241,19 +243,3 @@ class InputForm extends React.Component {
 
 //export default withRoot(withStyles(styles(InputForm)));
 export default withStyles(styles)(InputForm);
-
-/*
-<TextField
-  id="outlined-number"
-  label="Number"
-  // value={this.state.age}
-  // onChange={this.handleChange("age")}
-  type="number"
-  // className={classes.textField}
-  InputLabelProps={{
-    shrink: true,
-  }}
-  margin="normal"
-  variant="outlined"
-/>
-*/

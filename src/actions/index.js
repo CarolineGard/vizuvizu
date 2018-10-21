@@ -2,6 +2,9 @@
 import { ADD_POST, DELETE_POST, FETCH_POST } from "./types";
 import axios from "axios";
 
+// Login and Register
+import { combineReducers } from "redux";
+
 const apiUrl = "http://localhost:1234/products";
 
 export const createPost = ({ title, body }) => {
@@ -69,3 +72,6 @@ export const fetchAllPosts = () => {
       });
   };
 };
+
+// Login and Register
+export default combineReducers({});
