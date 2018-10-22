@@ -1,13 +1,15 @@
 var express = require("express");
+var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var cors = require("cors");
+
+const passport = require("passport");
 var product = require("./routes/product"); // Imports routes for the products
+var users = require("./routes/user");
+
 var app = express();
-const passport = require("./passport");
-const users = require("/models/user");
 
 // Set up mongoose connection
-var mongoose = require("mongoose");
 var dev_db_url = "mongodb://vizuvizu:abc123@ds119993.mlab.com:19993/vizuvizu";
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB);

@@ -1,5 +1,5 @@
 const JWTStrategy = require("passport-jwt").Strategy;
-const ExtractJWT = require("passport-jwt").JWTStrategy;
+const ExtractJWT = require("passport-jwt").ExtractJwt;
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const opts = {};
@@ -17,7 +17,7 @@ module.exports = passport => {
           }
           return done(null, false);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     })
   );
 };

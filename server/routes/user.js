@@ -9,8 +9,8 @@ const validateLoginInput = require("../validation/login");
 
 const User = require("../models/users");
 
-router.post("./register", function(req, res) {
-  const { errors, isValid } = validateRegisterInput(req, res);
+router.post("/register", function(req, res) {
+  const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -35,13 +35,12 @@ router.post("./register", function(req, res) {
         password: req.body.password,
         avatar,
       });
-
+      // Create hash value for the password, save it to database and send back to the client side
       bcrypt.genSalt(10, (err, salt) => {
-        if (err) console.error("An error occurred", err);
+        if (err) console.error("There was an error", err);
         else {
-          // Create hash value for the password, save it to database and send back to the client side
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) console.error("An error occurred", err);
+            if (err) console.error("There was an error", err);
             else {
               newUser.password = hash;
               newUser.save().then(user => {
@@ -58,7 +57,9 @@ router.post("./register", function(req, res) {
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
-  if (!isValid) return res.status(400).json(errors);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   const email = req.body.email;
   const password = req.body.password;
@@ -96,13 +97,12 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        errors.password = "Incorrect password";
+        errors.password = "Incorrect Password";
         return res.status(400).json(errors);
       }
     });
   });
 });
-
 // Create a protected router path "/me"
 // If the user is logged in and has a jwt token it can access this path
 // Otherwise, the user will get redirected to the login page, since the route is protected
@@ -112,7 +112,7 @@ router.get(
   (req, res) => {
     return res.json({
       id: req.user.id,
-      name: req.json.name,
+      name: req.user.name,
       email: req.user.email,
     });
   }

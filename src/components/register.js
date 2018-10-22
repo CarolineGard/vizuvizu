@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { registerUser } from "../actions/authentication";
 
 class Register extends React.Component {
   constructor() {
@@ -28,10 +32,19 @@ class Register extends React.Component {
       password: this.state.password,
       password_confirm: this.state.password_confirm,
     };
-    console.log(user);
+    this.props.registerUser(user, this.props.history);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <h2>Registration</h2>
@@ -43,6 +56,7 @@ class Register extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.name}
           />
+          {errors.name && <div>{errors.name}</div>}
           <br />
           <input
             type="email"
@@ -51,6 +65,7 @@ class Register extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.email}
           />
+          {errors.email && <div>{errors.email}</div>}
           <br />
           <input
             type="password"
@@ -59,6 +74,7 @@ class Register extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.password}
           />
+          {errors.password && <div>{errors.password}</div>}
           <br />
           <input
             type="password"
@@ -67,6 +83,7 @@ class Register extends React.Component {
             onChange={this.handleInputChange}
             value={this.state.password_confirm}
           />
+          {errors.password_confirm && <div>{errors.password_confirm}</div>}
           <br />
           <button type="submit">Register User</button>
         </form>
@@ -75,4 +92,15 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+Register.PropTypes = {
+  registerUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors,
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));

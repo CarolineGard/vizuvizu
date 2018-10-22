@@ -9,3 +9,7 @@ export const DELETE_POST = "DELETE_POST";
 // When the page loads, the fetch_post action is initialized
 // and fetch all the data from the server and save it inside Redux store
 export const FETCH_POST = "FETCH_POST";
+
+// For login and register
+export const GET_ERRORS = "GET_ERRORS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
