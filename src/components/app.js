@@ -14,9 +14,9 @@ import CreatePost from "../containers/CreatePost";
 // Stateless function, pure
 const App = () => (
   <div>
-    <Grid container justify="center" xs={24}>
-      <Navbar />
-    </Grid>
+    {/* <Grid container justify="center" xs={24}> */}
+    <Navbar />
+    {/* </Grid> */}
     <Footer />
   </div>
 );

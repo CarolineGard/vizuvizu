@@ -111,14 +111,10 @@ class InputForm extends React.Component {
     tempY[index] = "";
     tempS[index] = "";
 
-    console.log("column: ", column[0]);
+    // Send data to parent component
+    this.props.onUpdate(column);
 
     this.setState({ tempX, tempY }); // ==> {"tempX" : tempX, "tempY" : tempY}
-  };
-
-  saveTable = () => {
-    const { column, temp } = this.state;
-    // add to database
   };
 
   NewTextField = (classes, index, label, array, type) => {
@@ -209,31 +205,6 @@ class InputForm extends React.Component {
                 <AddIcon className={classes.iconButton} />
               </Button>
             </Grid>
-            <Grid>
-              {dataType === "line-chart" && (
-                <LineChart data={this.state.column[0]} />
-              )}
-              {dataType === "bar-chart" && (
-                <BarChart data={this.state.column[0]} />
-              )}
-              {dataType === "mark-serie" && (
-                <MarkSerie data={this.state.column[0]} />
-              )}
-            </Grid>
-            <Button
-              className={classes.button}
-              color="secondary"
-              variant="extendedFab"
-              style={{ width: 300 }}
-              type="submit"
-              value="Add Node server"
-              // onClick={() => this.saveTable()}
-            >
-              <SaveIcon className={classes.icon} />
-              <Typography variant="button" gutterBottom>
-                Save table
-              </Typography>
-            </Button>
           </Grid>
         </MuiThemeProvider>
       </div>

@@ -4,10 +4,10 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 
 const passport = require("passport");
-var product = require("./routes/product"); // Imports routes for the products
-var users = require("./routes/user");
+const product = require("./routes/product"); // Imports routes for the products
+const users = require("./controllers/user");
 
-var app = express();
+const app = express();
 
 // Set up mongoose connection
 var dev_db_url = "mongodb://vizuvizu:abc123@ds119993.mlab.com:19993/vizuvizu";
