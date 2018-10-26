@@ -3,6 +3,7 @@
 import { connect } from "react-redux";
 import { createPost } from "../actions/index";
 import NewPost, { newpost } from "../components/newPost";
+import NewTable, { newtable } from "../components/newtable";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -16,4 +17,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(NewPost);
+)(NewTable);

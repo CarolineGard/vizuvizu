@@ -2,8 +2,8 @@ import React from "react";
 
 class NewPost extends React.Component {
   state = {
-    title: "",
-    body: "",
+    name: "",
+    description: "",
   };
 
   handleInputChange = e => {
@@ -14,7 +14,7 @@ class NewPost extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.title.trim() && this.state.body.trim()) {
+    if (this.state.name.trim() && this.state.description.trim()) {
       this.props.onAddPost(this.state);
       this.handleReset();
     }
@@ -22,8 +22,8 @@ class NewPost extends React.Component {
 
   handleReset = () => {
     this.setState({
-      title: "",
-      body: "",
+      name: "",
+      description: "",
     });
   };
 
@@ -36,9 +36,9 @@ class NewPost extends React.Component {
               type="text"
               placeholder="Title"
               className="form-control"
-              name="title"
+              name="name"
               onChange={this.handleInputChange}
-              value={this.state.title}
+              value={this.state.name}
             />
           </div>
           <div className="form-group">
@@ -47,9 +47,9 @@ class NewPost extends React.Component {
               rows="8"
               placeholder="Body"
               className="form-control"
-              name="body"
+              name="description"
               onChange={this.handleInputChange}
-              value={this.state.body}
+              value={this.state.description}
             />
           </div>
           <div className="form-group">

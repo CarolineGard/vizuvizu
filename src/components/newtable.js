@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import InputForm from "./inputForm";
+import TextField from "@material-ui/core/TextField";
 import Styles from "../styles/mui-styles";
 import PropTypes from "prop-types";
 
@@ -45,7 +46,7 @@ const styles = theme => ({
   text: {
     textAlign: "center",
     marginTop: "1rem",
-    marginBottom: 170,
+    //marginBottom: 170,
   },
 
   control: {
@@ -65,8 +66,11 @@ class NewTable extends React.Component {
     this.state = {
       showChoice: false,
       showInputForm: false,
+      save: false,
       tableChoice: 1,
       data: [],
+      name: "",
+      description: "",
     };
   }
 
@@ -90,13 +94,50 @@ class NewTable extends React.Component {
     }));
   };
 
+  saveTable = state => {
+    const { data } = this.state;
+    data != null && data.length > 0
+      ? this.setState(state => ({ save: true }))
+      : console.log("error, data is required to save table!"); // FIX
+  };
+
+  goBack = state => {
+    this.setState(state => ({ save: false }));
+  };
+
+  handleChange = (event, name) => {
+    //const { name } = this.state;
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   onUpdate = values => {
     this.setState({ data: values.slice(0) });
     console.log("DATA: ", this.state.data);
   };
 
+  handleSubmit = event => {
+    event.preventDefault();
+    if (this.state.name.trim() && this.state.description.trim()) {
+      this.props.onAddPost(this.state);
+      this.handleReset();
+    }
+  };
+
+  handleReset = () => {
+    this.setState({
+      name: "",
+      description: "",
+      data: [],
+      save: false,
+      showChoice: false,
+      showInputForm: false,
+    });
+  };
+
   render() {
-    const { showChoice, showInputForm } = this.state;
+    const { showChoice, showInputForm, save, name, description } = this.state;
 
     const { classes } = this.props;
     return (
@@ -115,62 +156,71 @@ class NewTable extends React.Component {
                 <Typography variant="h4" className={classes.text} gutterBottom>
                   Create a chart
                 </Typography>
-
-                {!showChoice &&
-                  !showInputForm && (
-                    <Grid
-                      container
-                      className="button"
-                      direction="row"
-                      spacing={8}
-                      alignItems="center"
-                      justify="space-evenly"
-                    >
-                      <Button
-                        className={classes.button}
-                        color="primary"
-                        variant="extendedFab"
-                        onClick={() => this.clickStart(this.state)}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="column"
+                  alignItems="center"
+                  justify="center"
+                  style={{ minHeight: "70%" }}
+                >
+                  {!showChoice &&
+                    !showInputForm && (
+                      <Grid
+                        container
+                        className="button"
+                        direction="row"
+                        spacing={0}
+                        alignItems="center"
+                        justify="space-evenly"
                       >
-                        Start
-                      </Button>
-                    </Grid>
-                  )}
+                        <Button
+                          className={classes.button}
+                          color="primary"
+                          variant="extendedFab"
+                          onClick={() => this.clickStart(this.state)}
+                        >
+                          Start
+                        </Button>
+                      </Grid>
+                    )}
 
-                {showChoice &&
-                  !showInputForm && (
-                    <Grid
-                      container
-                      className="button"
-                      direction="row"
-                      spacing={8}
-                      alignItems="center"
-                      justify="space-evenly"
-                    >
-                      {[0, 1, 2].map(value => (
-                        <Grid key={value} item>
-                          <Button
-                            color="primary"
-                            variant="extendedFab"
-                            onClick={() =>
-                              this.clickChoise(this.state, value, 1)
-                            }
-                          >
-                            {value === 0 && "Line Chart"}
-                            {value === 1 && "Bar Chart"}
-                            {value === 2 && "Mark Series"}
-                          </Button>
-                        </Grid>
-                      ))}
-                    </Grid>
+                  {showChoice &&
+                    !showInputForm &&
+                    !save && (
+                      <Grid
+                        container
+                        className="button"
+                        direction="row"
+                        spacing={8}
+                        alignItems="center"
+                        justify="space-evenly"
+                      >
+                        {[0, 1, 2].map(value => (
+                          <Grid key={value} item>
+                            <Button
+                              color="primary"
+                              variant="extendedFab"
+                              onClick={() =>
+                                this.clickChoise(this.state, value, 1)
+                              }
+                            >
+                              {value === 0 && "Line Chart"}
+                              {value === 1 && "Bar Chart"}
+                              {value === 2 && "Mark Series"}
+                            </Button>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    )}
+                  {this.state.showInputForm && (
+                    <InputForm
+                      onUpdate={this.onUpdate}
+                      dataType={this.state.tableChoice}
+                      maxFields={this.state.maxFields}
+                    />
                   )}
-                {this.state.showInputForm && (
-                  <InputForm
-                    onUpdate={this.onUpdate}
-                    dataType={this.state.tableChoice}
-                    maxFields={this.state.maxFields}
-                  />
-                )}
+                </Grid>
               </Paper>
             </Grid>
             <Grid item>
@@ -178,42 +228,141 @@ class NewTable extends React.Component {
                 <Typography variant="h4" className={classes.text} gutterBottom>
                   Chart view
                 </Typography>
-                {this.state.data === undefined ||
-                this.state.data.length === 0 ? (
-                  <Typography
-                    variant="h6"
-                    className={classes.text}
-                    gutterBottom
-                  >
-                    Nothing here yet
-                  </Typography>
-                ) : (
-                  <Grid xs={12}>
-                    {this.state.tableChoice === "line-chart" && (
-                      <LineChart data={this.state.data[0]} />
-                    )}
-                    {this.state.tableChoice === "bar-chart" && (
-                      <BarChart data={this.state.data[0]} />
-                    )}
-                    {this.state.tableChoice === "mark-serie" && (
-                      <MarkSerie data={this.state.data[0]} />
-                    )}
 
-                    <Button
-                      className={classes.button}
-                      color="secondary"
-                      variant="extendedFab"
-                      style={{ width: 300 }}
-                      type="submit"
-                      value="Add Node server"
-                      // onClick={() => this.saveTable()}
-                    >
-                      <Typography variant="button" gutterBottom>
-                        Save table
+                <Grid
+                  container
+                  spacing={0}
+                  direction="column"
+                  alignItems="center"
+                  justify="center"
+                  style={{ minHeight: "70%" }}
+                >
+                  {!save ? (
+                    this.state.data === undefined ||
+                    this.state.data.length === 0 ? (
+                      <Typography
+                        variant="h6"
+                        className={classes.text}
+                        gutterBottom
+                      >
+                        Nothing here yet
                       </Typography>
-                    </Button>
-                  </Grid>
-                )}
+                    ) : (
+                      <Grid xs={12} justify="flex-start">
+                        {this.state.tableChoice === "line-chart" && (
+                          <LineChart data={this.state.data[0]} />
+                        )}
+                        {this.state.tableChoice === "bar-chart" && (
+                          <BarChart data={this.state.data[0]} />
+                        )}
+                        {this.state.tableChoice === "mark-serie" && (
+                          <MarkSerie data={this.state.data[0]} />
+                        )}
+
+                        <Button
+                          className={classes.button}
+                          color="secondary"
+                          variant="extendedFab"
+                          style={{ width: 300 }}
+                          type="submit"
+                          value="Add Node server"
+                          onClick={() => this.saveTable()}
+                        >
+                          <Typography variant="button" gutterBottom>
+                            Save table
+                          </Typography>
+                        </Button>
+                      </Grid>
+                    )
+                  ) : (
+                    <Grid
+                      container
+                      spacing={16}
+                      direction="column"
+                      justify="center"
+                      justifyItems="center"
+                      style={{ width: "45vh", height: "50vh" }}
+                    >
+                      <Grid item>
+                        <Typography variant="button" gutterBottom>
+                          Name your chart:
+                        </Typography>
+                      </Grid>
+                      <form
+                        className={classes.container}
+                        noValidate
+                        autoComplete="off"
+                        onSubmit={this.handleSubmit}
+                      >
+                        <Grid
+                          container
+                          spacing={16}
+                          direction="column"
+                          justify="center"
+                          justifyItems="center"
+                        >
+                          <Grid item>
+                            <TextField
+                              id="standard-name"
+                              label="Name"
+                              //className={classes.textField}
+                              value={name}
+                              onChange={event =>
+                                this.handleChange(event, "name")
+                              }
+                              margin="normal"
+                              variant="outlined"
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              id="outlined-multiline-flexible"
+                              label="Description"
+                              multiline
+                              rowsMax="8"
+                              value={description}
+                              onChange={event =>
+                                this.handleChange(event, "description")
+                              }
+                              className={classes.textField}
+                              margin="normal"
+                              helperText="Specify your chart"
+                              variant="outlined"
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              className={classes.button}
+                              color="secondary"
+                              variant="extendedFab"
+                              style={{ width: 300 }}
+                              type="submit"
+                              onClick={() => this.saveTable()}
+                            >
+                              <Typography variant="button" gutterBottom>
+                                Save
+                              </Typography>
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              className={classes.button}
+                              color="primary"
+                              variant="extendedFab"
+                              style={{ width: 300 }}
+                              value="Add Node server"
+                              onClick={() => this.goBack()}
+                            >
+                              <Typography variant="button" gutterBottom>
+                                Go back
+                              </Typography>
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </form>
+                    </Grid>
+                  )}
+                </Grid>
               </Paper>
             </Grid>
           </Grid>

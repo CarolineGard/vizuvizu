@@ -9,11 +9,14 @@ exports.test = function(req, res) {
 // Creates a new object using the data coming from a POST request and saves it to a database
 exports.product_create = function(req, res) {
   let product = new Product({
-    title: req.body.title,
-    body: req.body.body,
+    name: req.body.name,
+    description: req.body.description,
+    //name: req.body.name,
+    //description: req.body.description,
+    //data: req.body.data,
   });
 
-  product.save(function(err, next) {
+  product.save(function(err) {
     if (err) {
       return next(err);
     }
@@ -22,7 +25,7 @@ exports.product_create = function(req, res) {
 };
 
 // Reads an existing object from the object id being sent in the request
-exports.product_details = function(req, res, next) {
+exports.product_details = function(req, res) {
   Product.findById(req.params.id, function(err, product) {
     if (err) return next(err);
     res.send(product);
@@ -30,18 +33,19 @@ exports.product_details = function(req, res, next) {
 };
 
 // Updating an existing object by the object id to set new values
-exports.product_update = function(req, res, next) {
-  Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
+exports.product_update = function(req, res) {
+  // Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
+  Product.findByIdAndUpdate(req.params.id, { $set: req.name }, function(
     err,
     product
   ) {
     if (err) return next(err);
-    res.send("Product updated.");
+    res.send("Chart updated.");
   });
 };
 
 // Delete object by object id
-exports.product_delete = function(req, res, next) {
+exports.product_delete = function(req, res) {
   Product.findByIdAndRemove(req.params.id, function(err) {
     if (err) return next(err);
     res.send("Deleted successfully!");

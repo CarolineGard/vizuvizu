@@ -7,10 +7,10 @@ import { combineReducers } from "redux";
 
 const apiUrl = "http://localhost:1234/products";
 
-export const createPost = ({ title, body }) => {
+export const createPost = ({ name, description }) => {
   return dispatch => {
     return axios
-      .post(`${apiUrl}/create`, { title, body })
+      .post(`${apiUrl}/create`, { name, description })
       .then(response => {
         dispatch(createPostSuccess(response.data));
       })
@@ -25,8 +25,8 @@ export const createPostSuccess = data => {
     type: ADD_POST,
     payload: {
       _id: data._id,
-      title: data.title,
-      body: data.body,
+      name: data.name,
+      description: data.description,
     },
   };
 };

@@ -12,7 +12,7 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
 // Components
-import NewTable from "./newtable";
+import MyCharts from "./myCharts";
 import Login from "./login";
 import Register from "./register";
 import Styles from "../styles/mui-styles";
@@ -36,7 +36,6 @@ const Home = () => (
     <MuiThemeProvider theme={Styles}>
       <Header title="Home" />
       <Content text="Welcome to vizuvizu, the new and easy way for vizualizing data.  " />
-      <CreatePost />
     </MuiThemeProvider>
   </div>
 );
@@ -60,6 +59,14 @@ const Navbar = () => (
             </Link>
           </Button>
           <Button>
+            <Link
+              style={{ color: "#fff", textDecoration: "none" }}
+              to="/mycharts"
+            >
+              <Tab label="my charts" />
+            </Link>
+          </Button>
+          <Button>
             <Link style={{ color: "#fff", textDecoration: "none" }} to="/login">
               <Tab label="Login" />
             </Link>
@@ -77,7 +84,8 @@ const Navbar = () => (
     </MuiThemeProvider>
 
     <Route exact path="/" component={Home} />
-    <Route path="/newtable" component={NewTable} />
+    <Route path="/newtable" component={CreatePost} />
+    <Route path="/mycharts" component={MyCharts} />
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
   </div>
