@@ -6,14 +6,21 @@ exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
+// Get number of stored objects in db
+exports.product_number = function(req, res) {
+  res.send(Product.count());
+};
+
 // Creates a new object using the data coming from a POST request and saves it to a database
-exports.product_create = function(req, res) {
+exports.product_create = function(req, res, next) {
+  console.log("req.body:", req.body);
+  console.log("req.body.dat:", req.body.data);
+  console.log({ reqbody2: req.body });
   let product = new Product({
     name: req.body.name,
     description: req.body.description,
-    //name: req.body.name,
-    //description: req.body.description,
-    //data: req.body.data,
+    chartType: req.body.tableChoice,
+    data: req.body.data,
   });
 
   product.save(function(err) {

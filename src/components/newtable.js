@@ -119,7 +119,11 @@ class NewTable extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.state.name.trim() && this.state.description.trim()) {
+    if (
+      this.state.name.trim() &&
+      this.state.description.trim() &&
+      this.state.tableChoice.trim()
+    ) {
       this.props.onAddPost(this.state);
       this.handleReset();
     }

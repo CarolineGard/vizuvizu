@@ -4,12 +4,20 @@
 // When errors occur, the reducer will fill the state with errors (can be displayed in the frontend)
 
 //import { ADD_POST, DELETE_POST, FETCH_POST } from "../actions/types";
-import { ADD_POST, DELETE_POST, FETCH_POST } from "../actions/types";
+import {
+  ADD_POST,
+  DELETE_POST,
+  FETCH_POST,
+  GET_NUMBER,
+} from "../actions/types";
 
 export default function postReducer(state = [], action) {
   switch (action.type) {
     case ADD_POST:
       return [...state, action.payload];
+
+    case GET_NUMBER:
+      return state;
 
     case DELETE_POST:
       return state.filter(post => post._id !== action.payload.id);

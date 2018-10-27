@@ -1,5 +1,5 @@
 // Database
-import { ADD_POST, DELETE_POST, FETCH_POST } from "./types";
+import { ADD_POST, DELETE_POST, FETCH_POST, GET_NUMBER } from "./types";
 import axios from "axios";
 
 // Login and Register
@@ -7,16 +7,27 @@ import { combineReducers } from "redux";
 
 const apiUrl = "http://localhost:1234/products";
 
-export const createPost = ({ name, description }) => {
+export const createPost = ({ name, description, tableChoice, data }) => {
   return dispatch => {
     return axios
-      .post(`${apiUrl}/create`, { name, description })
+      .post(`${apiUrl}/create`, {
+        name,
+        description,
+        tableChoice,
+        data: data[0],
+      })
       .then(response => {
         dispatch(createPostSuccess(response.data));
       })
       .catch(error => {
         throw error;
       });
+  };
+};
+
+export const getArrayNumber = () => {
+  return {
+    type: GET_NUMBER,
   };
 };
 
@@ -27,6 +38,8 @@ export const createPostSuccess = data => {
       _id: data._id,
       name: data.name,
       description: data.description,
+      chartType: data.tableChoice,
+      data: data.data,
     },
   };
 };

@@ -6,7 +6,16 @@ let ProductSchema = new Schema({
   //body: { type: String, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  //data: { type: Number, required: true },
+  chartType: { type: String, required: true },
+
+  data: [
+    {
+      x: { type: Number, required: true },
+      y: { type: Number, required: true },
+      size: { type: Number },
+      opacity: { type: Number },
+    },
+  ],
 });
 
 // Export the model
