@@ -10,6 +10,7 @@ export const DELETE_POST = "DELETE_POST";
 // and fetch all the data from the server and save it inside Redux store
 export const FETCH_POST = "FETCH_POST";
 
+export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_NUMBER = "GET_NUMBER";
 
 // For login and register

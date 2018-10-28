@@ -8,7 +8,7 @@ import {
   ADD_POST,
   DELETE_POST,
   FETCH_POST,
-  GET_NUMBER,
+  GET_PRODUCTS,
 } from "../actions/types";
 
 export default function postReducer(state = [], action) {
@@ -16,8 +16,8 @@ export default function postReducer(state = [], action) {
     case ADD_POST:
       return [...state, action.payload];
 
-    case GET_NUMBER:
-      return state;
+    case GET_PRODUCTS:
+      return action.payload; //puts in redux state
 
     case DELETE_POST:
       return state.filter(post => post._id !== action.payload.id);

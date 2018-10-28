@@ -8,18 +8,13 @@ import Grid from "@material-ui/core/Grid";
 
 //icons
 //import Icon from "@material-ui/core/Icon";
-import SaveIcon from "@material-ui/icons/Save";
+//import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 
 import ColorButton from "./colorbutton";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Styles from "../styles/mui-styles";
-
-// Charts
-import LineChart from "../charts/LineChart";
-import BarChart from "../charts/BarChart";
-import MarkSerie from "../charts/MarkSerie";
 
 //const Theme = theme => ({ --> theme.spacing.unit
 const styles = theme => ({
@@ -54,7 +49,6 @@ const styles = theme => ({
   },
 
   icon: {
-    //margin: "6px",
     fontSize: "25px",
   },
 });
@@ -98,12 +92,15 @@ class InputForm extends React.Component {
   addNewValue = index => {
     const { column, tempX, tempY, tempS } = this.state;
 
+    var s = 0;
+    tempS[index] != null && tempS[index] !== "" && (s = parseInt(tempS[index]));
+
     (tempX[index] != null || tempX[index] !== "") &&
       (tempY[index] != null || tempY[index] !== "") &&
       column[index].push({
         x: parseInt(tempX[index]),
         y: parseInt(tempY[index]),
-        size: parseInt(tempS[index]),
+        size: s,
         opacity: 0.2,
       });
 

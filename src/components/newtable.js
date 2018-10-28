@@ -114,7 +114,6 @@ class NewTable extends React.Component {
 
   onUpdate = values => {
     this.setState({ data: values.slice(0) });
-    console.log("DATA: ", this.state.data);
   };
 
   handleSubmit = event => {
@@ -232,7 +231,7 @@ class NewTable extends React.Component {
                 <Typography variant="h4" className={classes.text} gutterBottom>
                   Chart view
                 </Typography>
-
+                {console.log("dataNewTAble: ", this.state.data[0])}
                 <Grid
                   container
                   spacing={0}
@@ -252,7 +251,7 @@ class NewTable extends React.Component {
                         Nothing here yet
                       </Typography>
                     ) : (
-                      <Grid xs={12} justify="flex-start">
+                      <Grid xs={12} justify="center">
                         {this.state.tableChoice === "line-chart" && (
                           <LineChart data={this.state.data[0]} />
                         )}

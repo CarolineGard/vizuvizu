@@ -15,7 +15,6 @@ exports.product_number = function(req, res) {
 exports.product_create = function(req, res, next) {
   console.log("req.body:", req.body);
   console.log("req.body.dat:", req.body.data);
-  console.log({ reqbody2: req.body });
   let product = new Product({
     name: req.body.name,
     description: req.body.description,
@@ -32,15 +31,22 @@ exports.product_create = function(req, res, next) {
 };
 
 // Reads an existing object from the object id being sent in the request
-exports.product_details = function(req, res) {
+exports.product_details = function(req, res, next) {
   Product.findById(req.params.id, function(err, product) {
     if (err) return next(err);
     res.send(product);
   });
 };
 
+exports.product_all = function(req, res, next) {
+  Product.find({}, function(err, products) {
+    if (err) return next(err);
+    res.send(products);
+  });
+};
+
 // Updating an existing object by the object id to set new values
-exports.product_update = function(req, res) {
+exports.product_update = function(req, res, next) {
   // Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
   Product.findByIdAndUpdate(req.params.id, { $set: req.name }, function(
     err,
@@ -52,7 +58,7 @@ exports.product_update = function(req, res) {
 };
 
 // Delete object by object id
-exports.product_delete = function(req, res) {
+exports.product_delete = function(req, res, next) {
   Product.findByIdAndRemove(req.params.id, function(err) {
     if (err) return next(err);
     res.send("Deleted successfully!");

@@ -10,6 +10,7 @@ let ProductSchema = new Schema({
 
   data: [
     {
+      _id: false,
       x: { type: Number, required: true },
       y: { type: Number, required: true },
       size: { type: Number },

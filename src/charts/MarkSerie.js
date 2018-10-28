@@ -32,7 +32,7 @@ class Example extends React.Component {
       seriesId: "my-example-scatterplot",
       colorRange: colorRanges[colorType],
       opacityType: "literal",
-      data,
+      data: data,
       onNearestXY: value => this.setState({ value }),
     };
 

@@ -1,5 +1,5 @@
 // Database
-import { ADD_POST, DELETE_POST, FETCH_POST, GET_NUMBER } from "./types";
+import { ADD_POST, DELETE_POST, FETCH_POST, GET_PRODUCTS } from "./types";
 import axios from "axios";
 
 // Login and Register
@@ -25,12 +25,6 @@ export const createPost = ({ name, description, tableChoice, data }) => {
   };
 };
 
-export const getArrayNumber = () => {
-  return {
-    type: GET_NUMBER,
-  };
-};
-
 export const createPostSuccess = data => {
   return {
     type: ADD_POST,
@@ -41,6 +35,26 @@ export const createPostSuccess = data => {
       chartType: data.tableChoice,
       data: data.data,
     },
+  };
+};
+
+export const getProducts = () => {
+  return dispatch => {
+    return axios
+      .get(`${apiUrl}/`)
+      .then(response => {
+        dispatch(getProductSuccess(response.data));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+};
+
+export const getProductSuccess = data => {
+  return {
+    type: GET_PRODUCTS,
+    payload: data, //data: data,
   };
 };
 
@@ -56,9 +70,10 @@ export const deletePostSuccess = id => {
 export const deletePost = id => {
   return dispatch => {
     return axios
-      .get(`${apiUrl}/delete/${id}`)
+      .delete(`${apiUrl}/${id}/delete`)
       .then(response => {
-        dispatch(deletePostSuccess(response.data));
+        dispatch(deletePostSuccess());
+        dispatch(getProducts()); // if delete successful, fetch all products again
       })
       .catch(error => {
         throw error;

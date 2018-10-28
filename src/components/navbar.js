@@ -12,7 +12,8 @@ import Tabs from "@material-ui/core/Tabs";
 
 // Components
 import Home from "./home";
-import MyCharts from "./myCharts";
+//import MyCharts from "./myCharts";
+import MyCharts from "../containers/MyCharts";
 import Login from "./login";
 import Register from "./register";
 import Styles from "../styles/mui-styles";
