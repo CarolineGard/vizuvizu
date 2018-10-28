@@ -11,6 +11,8 @@ import NewPost from "./newPost";
 // The action calls the reducer to modify the global state
 import CreatePost from "../containers/CreatePost";
 
+import jwt_decode from "jwt-decode";
+
 // Stateless function, pure
 const App = () => (
   <div>

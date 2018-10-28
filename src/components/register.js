@@ -48,7 +48,7 @@ class Register extends React.Component {
     return (
       <div>
         <h2>Registration</h2>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="Name"
@@ -85,7 +85,7 @@ class Register extends React.Component {
           />
           {errors.password_confirm && <div>{errors.password_confirm}</div>}
           <br />
-          <button type="submit">Register User</button>
+          <button type="submit">Register</button>
         </form>
       </div>
     );

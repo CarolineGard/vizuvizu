@@ -9,6 +9,8 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import setAuthToken from "../setAuthToken";
 import jwt_decode from "jwt-decode";
 
+//const apiUrl = "http://localhost:1234"; //${apiUrl}
+
 export const registerUser = (user, history) => dispatch => {
   axios
     .post("/api/users/register", user)
@@ -16,7 +18,7 @@ export const registerUser = (user, history) => dispatch => {
     .catch(err => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data,
+        payload: err,
       });
     });
 };

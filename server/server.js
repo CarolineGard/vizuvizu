@@ -5,7 +5,7 @@ var cors = require("cors");
 
 const passport = require("passport");
 const product = require("./routes/product"); // Imports routes for the products
-const users = require("./controllers/users");
+const users = require("./routes/user");
 
 const app = express();
 

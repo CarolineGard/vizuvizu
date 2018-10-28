@@ -7,11 +7,11 @@ const passport = require("passport");
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
-const User = require("../controllers/users");
+const User = require("../models/users");
 
 router.post("/register", function(req, res) {
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  console.log("ROUTESSSSSSS");
   if (!isValid) {
     return res.status(400).json(errors);
   }
