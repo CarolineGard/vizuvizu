@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import InputForm from "./inputForm";
 import TextField from "@material-ui/core/TextField";
-import Styles from "../styles/mui-styles";
+import Styles from "../styles/styles";
 import PropTypes from "prop-types";
 
 import LineChart from "../charts/LineChart";

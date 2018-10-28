@@ -14,8 +14,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken";
-//import { setCurrentUser, logoutUser } from "./actions/authentication";
-import { setCurrentUser } from "./actions/authentication";
+import { setCurrentUser, logoutUser } from "./actions/authentication";
 
 // Create Redux store and apply redux-thunk middleware
 // Middleware helps us to deal with Async action inside the redux store, such as AJAX or network requests through redux
@@ -40,7 +39,7 @@ if (localStorage.jwtToken) {
 
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    //store.dispatch(logoutUser());
+    store.dispatch(logoutUser());
     window.location.href = "/login";
   }
 }

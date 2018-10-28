@@ -4,7 +4,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Styles from "../styles/mui-styles";
+import Styles from "../styles/styles";
 
 const Colors = [
   "#e06b6c",
@@ -20,13 +20,6 @@ const Colors = [
   "#58b2d8",
   "#23313e",
 ];
-
-const styles = () => ({
-  button: {
-    // width: "15px",
-    // height: "15px",
-  },
-});
 
 class ColorButton extends React.Component {
   constructor(props) {
@@ -46,7 +39,6 @@ class ColorButton extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <MuiThemeProvider theme={Styles}>
         <Button
@@ -68,4 +60,4 @@ class ColorButton extends React.Component {
   }
 }
 
-export default withStyles(styles)(ColorButton);
+export default withStyles(Styles)(ColorButton);

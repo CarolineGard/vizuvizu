@@ -28,23 +28,19 @@ const Styles = createMuiTheme({
   root: {
     flexGrow: 1,
   },
+
+  wrapper: {
+    height: "90vh",
+  },
+
   paper: {
     // padding: theme.spacing.unit * 2,
     textAlign: "center",
     //color: theme.palette.text.secondary,
   },
+
+  button: {
+    marginTop: 30,
+  },
 });
 export default Styles;
-
-/*
-overrides: {
-    MuiButton: {
-      root: {
-        color: "white",
-        "&:hover": {
-          backgroundColor: blue,
-        },
-      },
-    },
-  },
-*/

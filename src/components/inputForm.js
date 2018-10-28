@@ -14,7 +14,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 import ColorButton from "./colorbutton";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import Styles from "../styles/mui-styles";
+import Styles from "../styles/styles";
 
 //const Theme = theme => ({ --> theme.spacing.unit
 const styles = theme => ({
