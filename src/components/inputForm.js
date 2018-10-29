@@ -7,16 +7,13 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 //icons
-//import Icon from "@material-ui/core/Icon";
-//import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 
-import ColorButton from "./colorbutton";
+// import ColorButton from "./colorbutton";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Styles from "../styles/styles";
 
-//const Theme = theme => ({ --> theme.spacing.unit
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -147,7 +144,7 @@ class InputForm extends React.Component {
               index
             ) => (
               <Grid>
-                <ColorButton className={classes.buttonSquare} />
+                {/* <ColorButton className={classes.buttonSquare} /> */}
                 {this.NewTextField(
                   classes,
                   index,
@@ -182,7 +179,6 @@ class InputForm extends React.Component {
                 </Button>
                 {/* creates new anonymous function, for not be clicked right away when entering the page */}
                 <Button
-                  // className={classes.buttonSquare}
                   color="secondary"
                   onClick={() => this.deleteField(index)}
                 >

@@ -17,6 +17,7 @@ const styles = theme => ({
 
   wrapper: {
     height: "90vh",
+    width: "100vh",
   },
 
   button: {
@@ -26,7 +27,7 @@ const styles = theme => ({
 
   paper: {
     minHeight: 350,
-    minWidth: 450,
+    minWidth: 700,
     padding: 40,
   },
 });
@@ -49,101 +50,106 @@ class MyCharts extends React.Component {
     const { classes, posts } = this.props;
     return (
       <div className={classes.root}>
-        <Grid item xs={12}>
-          <Grid
-            container
-            className={classes.wrapper}
-            spacing={16}
-            alignItems="center"
-            direction="row"
-            justify="center"
-          >
-            <Grid item xs={12}>
-              <Typography
-                variant="h4"
-                style={{ marginTop: 90, marginBottom: 50 }}
-              >
-                Here you can see your saved charts
-              </Typography>
-            </Grid>
-            <Grid container justify="center" direction="row">
-              {!posts.length ? (
+        {/* <Grid item xs={12}> */}
+        <Grid
+          container
+          className={classes.wrapper}
+          spacing={16}
+          alignItems="center"
+          direction="row"
+          justify="center"
+        >
+          <Grid item xs={12}>
+            <Typography
+              variant="h4"
+              style={{ marginTop: 110, marginBottom: 50 }}
+            >
+              Here you can see your saved charts
+            </Typography>
+          </Grid>
+          <Grid container direction="row">
+            {!posts.length ? (
+              <Grid item xs={12}>
+                <Typography variant="h6">
+                  You have not created any charts yet
+                </Typography>
                 <Grid item xs={12}>
-                  <Typography variant="h6">
-                    You have not created any charts yet
-                  </Typography>
-                  <Grid item xs={12}>
-                    <Button
-                      className={classes.button}
-                      color="primary"
-                      variant="extendedFab"
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    variant="extendedFab"
+                  >
+                    <Link
+                      style={{ color: "#fff", textDecoration: "none" }}
+                      to="/newtable"
                     >
-                      <Link
-                        style={{ color: "#fff", textDecoration: "none" }}
-                        to="/newtable"
+                      {" "}
+                      Create Chart
+                    </Link>
+                  </Button>
+                </Grid>
+              </Grid>
+            ) : (
+              <Grid
+                container
+                justify="center"
+                justifyItems="center"
+                direction="row"
+                width="100vh"
+              >
+                <Grid item xs={12}>
+                  <Typography variant="h6" style={{ margin: 30 }}>
+                    Number of charts: {posts.length}
+                  </Typography>
+                </Grid>
+                <div style={{ width: "100vh" }}>
+                  {posts.map(object => {
+                    return (
+                      <Grid
+                        container
+                        width="100vh"
+                        direction="row"
+                        spacing={32}
                       >
-                        {" "}
-                        Create Chart
-                      </Link>
-                    </Button>
-                  </Grid>
-                </Grid>
-              ) : (
-                <Grid
-                  container
-                  justify="center"
-                  justifyItems="center"
-                  direction="row"
-                >
-                  <Grid item>
-                    <Typography variant="h6">
-                      Number of charts: {posts.length}
-                    </Typography>
-                    <div>
-                      {posts.map(object => {
-                        console.log("data, my charts:", object.data);
-                        console.log("data, my charts:", object.chartType);
-                        return (
-                          <Grid container direction="row" spacing={24}>
-                            <Grid item xs={6}>
-                              <Paper className={classes.paper}>
-                                <Typography variant="h6">
-                                  {object.name}
-                                </Typography>
-                                <Typography variant="h6">
-                                  {object.description}
-                                </Typography>
-                                <Grid item xs={12}>
-                                  {object.chartType === "line-chart" && (
-                                    <LineChart data={object.data} />
-                                  )}
-                                  {object.chartType === "bar-chart" && (
-                                    <BarChart data={object.data} />
-                                  )}
-                                  {object.chartType === "mark-serie" && (
-                                    <MarkSerie data={object.data} />
-                                  )}
-                                </Grid>
-                                <Button
-                                  className={classes.button}
-                                  color="primary"
-                                  variant="extendedFab"
-                                  onClick={() => this.handleDelete(object._id)}
-                                >
-                                  Delete
-                                </Button>
-                              </Paper>
+                        <Grid item xs={3}>
+                          <Paper className={classes.paper}>
+                            <Typography variant="h6">
+                              Name: {object.name}
+                            </Typography>
+                            <Grid item xs={12}>
+                              {object.chartType === "line-chart" && (
+                                <LineChart data={object.data} />
+                              )}
+                              {object.chartType === "bar-chart" && (
+                                <BarChart data={object.data} />
+                              )}
+                              {object.chartType === "mark-serie" && (
+                                <MarkSerie data={object.data} />
+                              )}
                             </Grid>
-                          </Grid>
-                        );
-                      })}
-                    </div>
-                  </Grid>
-                </Grid>
-              )}
-            </Grid>
+                            <Typography variant="h6">
+                              Description: {object.description}
+                            </Typography>
+                            <Button
+                              className={classes.button}
+                              color="primary"
+                              variant="extendedFab"
+                              onClick={() => this.handleDelete(object._id)}
+                            >
+                              Delete
+                            </Button>
+                          </Paper>
+                        </Grid>
+                      </Grid>
+                    );
+                  })}
+                </div>
+              </Grid>
+              //   </Grid>
+            )}
           </Grid>
         </Grid>
+        {/* </Grid> */}
 
         <Route path="/newtable" component={CreatePost} />
       </div>

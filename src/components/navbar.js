@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 // Material ui
 import { MuiThemeProvider } from "@material-ui/core/styles";
-// import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
@@ -16,7 +15,6 @@ import Tabs from "@material-ui/core/Tabs";
 
 // Components
 import Home from "./home";
-//import MyCharts from "./myCharts";
 import MyCharts from "../containers/MyCharts";
 import Login from "./login";
 import Register from "./register";
@@ -108,9 +106,7 @@ class Navbar extends React.Component {
     return (
       <div>
         <MuiThemeProvider theme={Styles}>
-          {/* <AppBar color="primary" title="My App"> */}
           {isAuthenticated ? authLinks : guestLinks}
-          {/* </AppBar> */}
         </MuiThemeProvider>
       </div>
     );

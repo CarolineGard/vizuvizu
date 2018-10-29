@@ -1,7 +1,6 @@
 import React from "react";
 
 //Material-ui
-import { MuiThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -9,13 +8,11 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import InputForm from "./inputForm";
 import TextField from "@material-ui/core/TextField";
-import Styles from "../styles/styles";
 import PropTypes from "prop-types";
 
 import LineChart from "../charts/LineChart";
 import BarChart from "../charts/BarChart";
 import MarkSerie from "../charts/MarkSerie";
-import { runInThisContext } from "vm";
 
 //import Btn from "button.js";
 
@@ -46,7 +43,6 @@ const styles = theme => ({
   text: {
     textAlign: "center",
     marginTop: "1rem",
-    //marginBottom: 170,
   },
 
   control: {

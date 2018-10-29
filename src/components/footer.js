@@ -1,5 +1,4 @@
 import React from "react";
-// import { url } from "inspector";
 
 const style = {
   backgroundColor: "#F8F8F8",

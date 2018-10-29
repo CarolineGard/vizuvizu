@@ -1,7 +1,5 @@
 const Product = require("../models/product");
 
-//Simple version, without validation or sanitation
-
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
@@ -13,8 +11,6 @@ exports.product_number = function(req, res) {
 
 // Creates a new object using the data coming from a POST request and saves it to a database
 exports.product_create = function(req, res, next) {
-  console.log("req.body:", req.body);
-  console.log("req.body.dat:", req.body.data);
   let product = new Product({
     name: req.body.name,
     description: req.body.description,
@@ -47,7 +43,6 @@ exports.product_all = function(req, res, next) {
 
 // Updating an existing object by the object id to set new values
 exports.product_update = function(req, res, next) {
-  // Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
   Product.findByIdAndUpdate(req.params.id, { $set: req.name }, function(
     err,
     product

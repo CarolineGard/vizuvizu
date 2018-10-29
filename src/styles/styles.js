@@ -1,14 +1,7 @@
-import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
-import amber from "@material-ui/core/colors/amber";
-import blue from "@material-ui/core/colors/blue";
-import red from "@material-ui/core/colors/red";
-//import pink from "@material-ui/core/colors/pink";
-//import white from "@material-ui/core/colors/white";
 import { isAbsolute, relative } from "path";
 
 const Styles = createMuiTheme({
-  // const styles = theme => ({
   position: relative,
   height: "100%",
   palette: {
@@ -34,9 +27,7 @@ const Styles = createMuiTheme({
   },
 
   paper: {
-    // padding: theme.spacing.unit * 2,
     textAlign: "center",
-    //color: theme.palette.text.secondary,
   },
 
   button: {

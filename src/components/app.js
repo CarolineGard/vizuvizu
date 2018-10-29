@@ -10,9 +10,7 @@ import Navbar from "./navbar";
 // Stateless function, pure
 const App = () => (
   <div>
-    {/* <Grid container justify="center" xs={24}> */}
     <Navbar />
-    {/* </Grid> */}
     <Footer />
   </div>
 );
